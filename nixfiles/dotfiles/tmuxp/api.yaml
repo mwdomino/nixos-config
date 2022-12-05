@@ -1,0 +1,37 @@
+session_name: api
+start_directory: $HOME/dev/api
+
+windows:
+  - window_name: docker
+    panes:
+      - shell_command:
+        - docker-compose build
+        - docker-compose up -d
+        - docker-compose run api bundle exec rails db:create
+        - docker-compose run api bundle exec rails db:setup
+        - rm -f tmp/pids/*.pid
+        - docker-compose up -d
+        - clear
+        - docker exec -it metal-api-1 bash
+
+  - window_name: nvim
+    panes:
+      - shell_command:
+        - nix-shell
+        - nvim . 
+
+  - window_name: shell
+    panes:
+      - shell_command:
+        - nix-shell
+
+  - window_name: shell
+    panes:
+      - shell_command:
+        - nix-shell
+
+  - window_name: emacs 
+    panes:
+      - shell_command:
+        - nix-shell
+        - emacs -nw . 
